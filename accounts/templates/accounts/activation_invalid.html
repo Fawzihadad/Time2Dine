@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Activation Failed{% endblock %}
+
+{% block content %}
+<div class="container py-5 text-center">
+
+<h2 class="text-danger">Activation Link Invalid</h2>
+
+<p>This activation link is invalid or has expired.</p>
+
+<a href="{% url 'register' %}" class="btn btn-primary">
+Register Again
+</a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Booking Confirmed{% endblock %}
+
+{% block content %}
+
+<div class="container text-center py-5">
+
+<h2 class="text-success fw-bold mb-3">
+✅ Reservation Confirmed
+</h2>
+
+<p>Your table has been successfully booked.</p>
+
+<a href="{% url 'my_reservations' %}" class="btn btn-primary mt-3">
+View My Reservations
+</a>
+
+</div>
+
+{% endblock %}

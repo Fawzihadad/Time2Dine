@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Opening Hours{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+<h2 class="mb-4">Opening Hours</h2>
+
+<a href="{% url 'add_opening_hours' %}" class="btn btn-primary mb-3">
+Add Opening Hours
+</a>
+
+<table class="table table-striped">
+
+<thead>
+<tr>
+<th>Day</th>
+<th>Open</th>
+<th>Close</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for hour in hours %}
+
+<tr>
+<td>{{ hour.get_day_of_week_display }}</td>
+<td>{{ hour.open_time }}</td>
+<td>{{ hour.close_time }}</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

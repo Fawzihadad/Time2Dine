@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}Book a Table{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="min-height: 80vh;">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-8">
+
+            <!-- Hero Card -->
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-5">
+
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold">
+                            <i class="fa-solid fa-calendar-check me-2 text-warning"></i>
+                            Book at <span class="text-primary">{{ restaurant.name }}</span>
+                        </h2>
+                        <p class="text-secondary">
+                            Fill out the form below to reserve your table. We’ll confirm your booking instantly.
+                        </p>
+                    </div>
+
+                    <!-- Form -->
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-dark">{{ field.label }}</label>
+                            {{ field|add_class:"form-control rounded-3 shadow-sm" }}
+                            {% if field.errors %}
+                                <div class="text-danger small mt-1">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100 mt-3 shadow-sm">
+                            Confirm Reservation
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

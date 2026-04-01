@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section d-flex align-items-center justify-content-center text-center text-white"
+     style="
+        position: relative;
+        background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5');
+        background-size: cover;
+        background-position: center;
+        height: 85vh;
+     ">
+
+    <!-- Dark overlay -->
+    <div style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+        z-index: 1;
+    "></div>
+
+    <!-- Content -->
+    <div class="fw-bold animate__animated animate__fadeInDown mb-2" 
+        style="position: relative; z-index: 2; max-width: 700px;">
+        <h1 class="display-2 fw-bold mb-3">
+            Discover Exceptional Dining
+        </h1>
+
+        <p class="lead animate__animated animate__fadeInUp mb-3" >
+            Book tables at the best restaurants near you.
+        </p>
+
+        <a href="{% url 'restaurant_list' %}"
+           class="btn btn-light btn-lg px-5 py-3 rounded-pill fw-semibold shadow">
+            Browse Restaurants
+        </a>
+    </div>
+
+</div>
+        
+    
+
+<!-- Benefits Section -->
+<div class="container mt-5">
+    <h2 class="text-center mb-5 fw-bold text-white">Why Time2Dine?</h2>
+    <div class="row text-center g-4">
+        <div class="col-md-4">
+            <div class="p-4 rounded-4 shadow-sm bg-secondary h-100 benefit-card">
+                <i class="fa-solid fa-star fa-3x mb-3 text-info"></i>
+                <h5 class="fw-bold text-white">Premium Restaurants</h5>
+                <p class="text-light">Only top-rated, curated dining experiences.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 rounded-4 shadow-sm bg-secondary h-100 benefit-card">
+                <i class="fa-solid fa-bolt fa-3x mb-3 text-info"></i>
+                <h5 class="fw-bold text-white">Instant Booking</h5>
+                <p class="text-light">Reserve your table in seconds, no waiting.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 rounded-4 shadow-sm bg-secondary h-100 benefit-card">
+                <i class="fa-solid fa-handshake fa-3x mb-3 text-info"></i>
+                <h5 class="fw-bold text-white">Seamless Experience</h5>
+                <p class="text-light">Enjoy a smooth, hassle-free dining journey.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Top Picks -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4 fw-bold text-white">Top Picks</h2>
+    <div id="topPicksCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for restaurant in top_picks %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="card mx-auto shadow-sm border-0 rounded-4 overflow-hidden" style="max-width:600px; background-color:#1a1a2e;">
+                    <img src="{% if forloop.counter|divisibleby:3 %}
+                    https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80
+                    {% elif forloop.counter|divisibleby:2 %}
+                    https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=600&q=80
+                    {% else %}
+                    https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=600&q=80
+                    {% endif %}"
+                                    class="card-img-top"
+                                    style="height:220px; object-fit:cover;"
+                                    alt="{{ restaurant.name }}">
+                                    <div class="card-body text-center">
+                        <h5 class="fw-bold text-white">{{ restaurant.name }}</h5>
+                        <p class="text-muted">{{ restaurant.location|default:"Unknown Location" }}</p>
+                        <a href="{% url 'create_booking' restaurant.id %}"class="btn px-4 py-2 mt-2 text-white" style="background-color:#256ba4; border:none;">Reserve Now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#topPicksCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+        <button class="carousel-control-next" type="button" data-bs-target="#topPicksCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+    </div>
+</div>
+
+{% endblock %}

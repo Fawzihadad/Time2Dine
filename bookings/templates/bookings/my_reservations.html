@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}My Reservations{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h2 class="mb-4 fw-bold">My Reservations</h2>
+
+    {% if bookings %}
+        <div class="list-group">
+
+            {% for booking in bookings %}
+                <div class="list-group-item mb-3 shadow-sm rounded-4 p-4">
+
+                    <h5 class="fw-bold mb-2">
+                        {{ booking.restaurant.name }} 
+                        <small class="text-muted">
+                            - {{ booking.date }} at {{ booking.time }}
+                        </small>
+                    </h5>
+
+                    <p class="mb-2">
+                        <strong>Table:</strong>
+                        {% if booking.table %}
+                            {{ booking.table.identifier }}
+                        {% else %}
+                            Pending
+                        {% endif %}
+                    </p>
+
+                    <p class="mb-0">
+                        <strong>Status:</strong>
+                        <span class="fw-bold {% if booking.status == 'confirmed' %}text-success{% else %}text-danger{% endif %}">
+                            {{ booking.status|title }}
+                        </span>
+                    </p>
+
+                </div>
+            {% endfor %}
+
+        </div>
+    {% else %}
+        <div class="alert alert-info rounded-4 shadow-sm">
+            You have no reservations yet.
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

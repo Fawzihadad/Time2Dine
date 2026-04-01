@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ restaurant.name }}{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h2 class="card-title">{{ restaurant.name }}</h2>
+        <p class="text-muted">{{ restaurant.location }}</p>
+
+        <hr>
+
+        <h5>About This Restaurant</h5>
+        <p>
+            Enjoy a wonderful dining experience at {{ restaurant.name }}.
+        </p>
+
+        <a href="{% url 'create_booking' restaurant.id %}" 
+        class="btn btn-success mt-3">
+        Book a Table
+     </a>
+     
+    </div>
+</div>
+
+{% endblock %}

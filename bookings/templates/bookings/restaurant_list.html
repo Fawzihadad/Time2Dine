@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Restaurants{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <h2 class="text-white fw-bold mb-4 text-center">Explore Restaurants</h2>
+
+    <!-- Filters -->
+    <div class="d-flex justify-content-center mb-4 flex-wrap gap-2">
+        <button class="btn btn-outline-light rounded-pill px-4">All</button>
+        <button class="btn btn-outline-light rounded-pill px-4">Fine Dining</button>
+        <button class="btn btn-outline-light rounded-pill px-4">Casual</button>
+        <button class="btn btn-outline-light rounded-pill px-4">Family Friendly</button>
+    </div>
+
+    <!-- Restaurant Grid -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for restaurant in restaurants %}
+        <div class="col">
+            <div class="card h-100 shadow border-0 rounded-4 overflow-hidden bg-dark text-white restaurant-card">
+
+                <!-- Dynamic Unsplash Image -->
+                <img src="{% if forloop.counter|divisibleby:3 %}
+https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80
+{% elif forloop.counter|divisibleby:2 %}
+https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=600&q=80
+{% else %}
+https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=600&q=80
+{% endif %}"
+                class="card-img-top"
+                style="height:220px; object-fit:cover;"
+                alt="{{ restaurant.name }}">
+                <div class="card-body text-center">
+
+                    <h5 class="fw-bold">{{ restaurant.name }}</h5>
+
+                    {% if restaurant.location %}
+                    <p class="text-secondary mb-1">
+                        <i class="fa-solid fa-location-dot me-1"></i>
+                        {{ restaurant.location }}
+                    </p>
+                    {% endif %}
+
+                    {% if restaurant.category %}
+                    <span class="badge bg-light text-dark mb-2">
+                        {{ restaurant.category }}
+                    </span>
+                    {% endif %}
+
+                    <a href="{% url 'create_booking' restaurant.id %}"
+                       class="btn mt-3 px-4 text-white rounded-pill"
+                       style="background-color:#7c3aed; border:none;">
+                        Reserve
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-muted mt-5">
+            No restaurants available at the moment.
+        </p>
+        {% endfor %}
+    </div>
+
+</div>
+
+<!-- Hover Animation Styling -->
+<style>
+.restaurant-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.btn-outline-light:hover {
+    background-color: #7c3aed;
+    border-color: #7c3aed;
+    color: white;
+}
+</style>
+
+{% endblock %}
